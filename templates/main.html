@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Auto Story GPT</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Roboto", sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: #f5f5f5; /* light background */
+        color: #333; /* dark text */
+      }
+      body.dark-mode {
+        background-color: #333; /* dark background */
+        color: #f5f5f5; /* light text */
+      }
+      textarea {
+        width: 100%;
+        height: 50vh;
+        resize: vertical;
+        margin-top: 10px;
+      }
+      textarea#story_idea {
+        width: 50%;
+        height: 10vh;
+        box-sizing: border-box;
+      }
+      textarea#story {
+        width: 75%;
+      }
+      button {
+        background: #888;
+        border: none;
+        color: #fff;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 10px 2px;
+        transition-duration: 0.2s;
+        cursor: pointer;
+        border-radius: 5px;
+      }
+      .button-group {
+        display: flex;
+        justify-content: center;
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+      .button-group button {
+        margin: 5px;
+      }
+      .spacer {
+        margin-bottom: 10px;
+      }
+      div#CharacterButtons {
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+      div.centered-div {
+        width: 100%;
+        text-align: center;
+      }
+      button.selected {
+        background-color: #00ff00;
+        color: black;
+      }
+      .hidden {
+        display: none;
+      }
+      #loading {
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        padding: 20px;
+        background-color: #333;
+        color: #fff;
+        border-radius: 10px;
+        display: none;
+      }
+      #generate,
+      #delete,
+      #reset,
+      #adjust_continuity,
+      #rewrite_story,
+      #undo,
+      #redo,
+      #toggleDarkMode {
+        background: #3498db; /* light blue */
+        color: #fff; /* white text */
+      }
+      #output {
+        margin-left: 150px;
+        margin-right: 150px;
+      }
+      #bottom {
+        margin-top: 50px;
+      }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  </head>
+  <body class="dark-mode">
+    <h1>Auto Story GPT</h1>
+    <div class="centered-div">
+      <label for="story_idea">Story Idea:</label>
+      <br />
+      <textarea id="story_idea"></textarea>
+    </div>
+    <div class="spacer"></div>
+    <div class="centered-div">
+      <textarea id="story" rows="10"></textarea>
+    </div>
+    <h2>Characters</h2>
+    <div id="loading" class="hidden">Creating...</div>
+    <div id="CharacterButtons">
+      <button id="bot1" name="bot" value="Character 1">Fry</button>
+      <button id="bot2" name="bot" value="Character 2">Leela</button>
+      <button id="bot3" name="bot" value="Character 3">Bender</button>
+      <button id="bot4" name="bot" value="Character 4">
+        Professor Farnsworth
+      </button>
+      <button id="bot5" name="bot" value="Character 5">Amy Wong</button>
+      <button id="bot6" name="bot" value="Character 6">Hermes Conrad</button>
+      <button id="bot7" name="bot" value="Character 7">Zoidberg</button>
+      <button id="bot8" name="bot" value="Character 8">Kif</button>
+      <button id="bot9" name="bot" value="Narrator">Narrator</button>
+      <button id="bot10" name="bot" value="Scene Description">
+        Scene Description
+      </button>
+    </div>
+    <h2>Actions</h2>
+    <div class="button-group">
+      <button id="generate">Generate</button>
+      <button id="delete">Delete Last Response</button>
+      <button id="reset">Reset</button>
+      <button id="adjust_continuity">Adjust for Continuity</button>
+      <button id="rewrite_story">Rewrite the Story</button>
+      <button id="undo">Undo</button>
+      <button id="redo">Redo</button>
+      <button id="toggleDarkMode">Light / Dark Mode</button>
+    </div>
+    <h2>Story</h2>
+    <div id="output" contenteditable="true"></div>
+    <div id="bottom"></div>
+
+    <script>
+      function showLoading() {
+        document.getElementById("loading").style.display = "block";
+      }
+
+      function hideLoading() {
+        document.getElementById("loading").style.display = "none";
+      }
+
+      $("#generate").click(function () {
+        showLoading();
+        var bot_id = $("button.selected").val(); // Change made here
+        var outputText = $("#output").text();
+        var story = outputText.split(" ").slice(-500).join(" "); // Fetch the last 500 words
+        var story_idea = $("#story_idea").val(); // Fetch the story idea
+        $.ajax({
+          url: "/api/generate",
+          type: "POST",
+          contentType: "application/json", // This line sets the content type to JSON
+          data: JSON.stringify({
+            bot_id: bot_id,
+            story: story,
+            story_idea: story_idea,
+          }),
+          dataType: "json",
+          success: function (data) {
+            $("#output").append("<p>" + data.response + "</p>");
+            $("#story").val(data.response);
+            hideLoading(); // hide the loading message on success
+          },
+          error: function (data) {
+            console.log(data.responseJSON.error); // This will log the server side error message
+            hideLoading(); // also hide the loading message on error
+          },
+        });
+      });
+
+      $("#adjust_continuity").click(function () {
+        showLoading();
+        var outputText = $("#output").text();
+        var story = outputText.split(" ").slice(-2000).join(" "); // Fetch the last 2000 words
+        $.ajax({
+          url: "/api/adjust_continuity",
+          type: "POST",
+          contentType: "application/json",
+          data: JSON.stringify({
+            story: story,
+          }),
+          dataType: "json",
+          success: function (data) {
+            $("#output").text(data.response);
+            hideLoading();
+          },
+          error: function (data) {
+            console.log(data.responseJSON.error);
+            hideLoading();
+          },
+        });
+      });
+
+      $("#rewrite_story").click(function () {
+        showLoading();
+        var outputText = $("#output").text();
+        var story = outputText.split(" ").slice(-2000).join(" "); // Fetch the last 2000 words
+        $.ajax({
+          url: "/api/rewrite_story",
+          type: "POST",
+          contentType: "application/json",
+          data: JSON.stringify({
+            story: story,
+          }),
+          dataType: "json",
+          success: function (data) {
+            $("#output").text(data.response);
+            hideLoading();
+          },
+          error: function (data) {
+            console.log(data.responseJSON.error);
+            hideLoading();
+          },
+        });
+      });
+
+      $(document).ready(function () {
+        $("#CharacterButtons button").click(function () {
+          $("#CharacterButtons button").removeClass("selected");
+          $(this).addClass("selected");
+        });
+      });
+
+      const subcategoryData = {
+        Personalities: [
+          "Narrator",
+          "Scene Description",
+          "Character 1",
+          "Character 2",
+          "Character 3",
+          "Character 4",
+          "Character 5",
+          "Character 6",
+          "Character 7",
+          "Character 8",
+        ],
+      };
+      $("#delete").click(function () {
+        showLoading();
+        var bot_id = $("button.selected").val(); // This line is changed
+        $.ajax({
+          url: "/api/delete_last",
+          type: "POST",
+          contentType: "application/json",
+          data: JSON.stringify({
+            bot_id: bot_id,
+          }),
+          dataType: "json",
+          success: function (data) {
+            // Delete the last response in the output div and the story textarea
+            var outputChildren = $("#output").children();
+            if (outputChildren.length > 0) {
+              outputChildren.last().remove();
+            }
+            $("#story").val("");
+            hideLoading();
+          },
+          error: function (data) {
+            console.log(data.responseJSON.error);
+            hideLoading();
+          },
+        });
+      });
+      document
+        .getElementById("toggleDarkMode")
+        .addEventListener("click", () => {
+          document.body.classList.toggle("dark-mode");
+          if (document.body.classList.contains("dark-mode")) {
+            document.getElementById("toggleDarkMode").innerText = "Light Mode";
+          } else {
+            document.getElementById("toggleDarkMode").innerText = "Dark Mode";
+          }
+        });
+    </script>
+  </body>
+</html>
