@@ -3,3 +3,4 @@ This code is a Flask web app that utilizes GPT-3.5 to generate AI responses for 
 # How to Use
 You can adjust the character names / personalities in the html and json files to your specifications.  I have provided a Futurama story generator as an example use case.
 You start by creating a story idea and choose a character, narrator, or scene description, and click generate.  The story will append to the bottom of the page.  You can edit the created story at any time.  You can continue the story with as many generations as you desire.
+# Don't forget to put your OPEN AI api key in the .env file to use
