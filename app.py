@@ -122,12 +122,3 @@ if __name__ == '__main__':
     app.run(debug=True, port=5000)
     
 # http://127.0.0.1:5000/
-
-# This Flask application is a chat server using OpenAI's API. It has several endpoints:
-
-# '/api/get_personal_prompt': Returns a predefined prompt for a given bot. These prompts are loaded from a JSON file and each bot has a unique ID.
-# '/': The landing page for the web application.
-# '/api/generate': Given a bot ID, story, and story idea, it generates a continuation of the story using OpenAI's chat models and the bot's predefined personality prompt.
-# '/api/reset': Resets the conversation history for a given bot.
-# '/api/delete_last': Deletes the last response from a bot's conversation history.
-# The application maintains a history of conversations for each bot to provide continuity in the chat. The chat history is also used when generating a new message from the bot.
