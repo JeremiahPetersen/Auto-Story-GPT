@@ -22,3 +22,12 @@ Story Idea: The scene opens up with Professor Farnsworth saying “Good news eve
 --> Selected “Zoidberg” clicked generate (...)
 
 Don't forget to put your OPEN AI api key in the .env file
+
+# TODO
+
+- [ ] Fix Undo/Redo Button Functionality
+- [ ] Experiment / Adjust "Rewrite the Story" and "Adjust for Continuity" Button Functionality
+- [ ] Fix UI so Story Generated is more prominent
+- [ ] Fix functionality of "<textarea id="story">
+- [ ] Check for more errors
+
