@@ -1,7 +1,8 @@
-https://github.com/JeremiahPetersen/Auto-Story-GPT/assets/118206017/e18f1a15-75f6-4168-bcf8-9d916b2aaada
+https://github.com/JeremiahPetersen/Auto-Story-GPT/assets/118206017/c59e62ac-ac03-4981-90e1-b9ae922a99a3
+Uploading AutoStoryGPT.mp4…
 
 # Auto-Story-GPT
-This code is a Flask web app that utilizes GPT-3.5 to generate AI responses for storytelling. It allows users to input a story idea, select a character or narrator, and generate responses based on the provided inputs. Users can also adjust for continuity or logic issues in a story, and rewrite the story to improve it.
+This code is a Flask web app that utilizes GPT-3.5 to generate AI responses for storytelling. It allows users to input a story idea, select a character or narrator, and generate responses based on the provided inputs. Users can also adjust for continuity or logic issues in a story, and rewrite the story to improve it.  Don't forget to put your OPEN AI api key in the .env file
 # How to Use
 You can adjust the character names / personalities in the html and json files to your specifications.  I have provided a Futurama story generator as an example use case.
 You start by creating a story idea and choose a character, narrator, or scene description, and click generate.  The story will append to the bottom of the page.  You can edit the created story at any time.  You can continue the story with as many generations as you desire.
@@ -11,7 +12,7 @@ You start by creating a story idea and choose a character, narrator, or scene de
 Start by typing an idea into the “Story Idea:” field. Then choose a character (Typically I choose “Narrator” or “Scene Description” to start the story. Then click generate. The story will be generated at the bottom of the screen. This story is fed back into ChatGPT on each call, so continuity is maintained. You can edit any part of the story being generated. There are also options to have the bot rewrite, adjust for continuity, or undo/redo.
 Example Use:
 
-Story Idea: The scene opens up with Professor Farnsworth saying “Good news everyone!”
+1. Story Idea: The scene opens up with Professor Farnsworth saying “Good news everyone!”
 
 --> Selected “Scene Description” clicked generate.
 
@@ -23,13 +24,11 @@ Story Idea: The scene opens up with Professor Farnsworth saying “Good news eve
 
 --> Selected “Zoidberg” clicked generate (...)
 
-Don't forget to put your OPEN AI api key in the .env file
-
 # TODO
 
 - [ ] Fix Undo/Redo Button Functionality
 - [ ] Experiment / Adjust "Rewrite the Story" and "Adjust for Continuity" Button Functionality
-- [ ] Fix UI so Story Generated is more prominent
+- [ ] Adjust UI so Story Generated is more prominent
 - [ ] Fix functionality of "<textarea id="story">
 - [ ] Check for more errors
 
