@@ -15,7 +15,7 @@ Story Idea: The scene opens up with Professor Farnsworth saying “Good news eve
 
 2. Story Idea: continue the story with dialog including Leela
 
---> Selected “Leela” clicked generate (Edited some of the story at the BOTTOM OF THE PAGE to remove unwanted sentences.)
+--> Selected “Leela” clicked generate *Edited some of the story (bottom of page) to remove unwanted sentences.
 
 3. Story Idea” next scene with Zoidberg
 
