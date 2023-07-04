@@ -1,5 +1,4 @@
-https://github.com/JeremiahPetersen/Auto-Story-GPT/assets/118206017/c59e62ac-ac03-4981-90e1-b9ae922a99a3
-Uploading AutoStoryGPT.mp4…
+https://github.com/JeremiahPetersen/Auto-Story-GPT/assets/118206017/92186afd-5d18-45e3-9caa-f1f3710f981f
 
 # Auto-Story-GPT
 This code is a Flask web app that utilizes GPT-3.5 to generate AI responses for storytelling. It allows users to input a story idea, select a character or narrator, and generate responses based on the provided inputs. Users can also adjust for continuity or logic issues in a story, and rewrite the story to improve it.  Don't forget to put your OPEN AI api key in the .env file
