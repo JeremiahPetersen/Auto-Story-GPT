@@ -117,6 +117,6 @@ def rewrite_story():
 
     return jsonify({"response": response})
 
-# Run the Flask app on port 5005 with debug mode
+# Run the Flask app on port 5000 with debug mode
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
