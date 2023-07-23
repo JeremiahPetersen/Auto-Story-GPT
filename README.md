@@ -30,4 +30,5 @@ Example Use:
 - [ ] Adjust UI so Story Generated is more prominent
 - [ ] Fix functionality of "<textarea id="story">
 - [ ] Check for more errors
+- [ ] Create Theme Templates
 
